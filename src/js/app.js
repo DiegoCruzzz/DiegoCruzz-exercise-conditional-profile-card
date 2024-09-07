@@ -1,3 +1,4 @@
+import { name } from "file-loader";
 import "../style/index.css";
 
 /**
@@ -10,7 +11,7 @@ import "../style/index.css";
         avatarURL: "https://randomuser.me/api/portraits/women/42.jpg", // this is the url for the profile avatar
         socialMediaPosition: "right", // social media bar position (left or right)
         
-        twitter: "name", // social media usernames
+        twitter: null, // social media usernames
         github: null,
         linkedin: null,
         instagram: null,
@@ -29,6 +30,16 @@ function render(variables = {}) {
   let cover = `<div class="cover"><img src="${variables.background}" /></div>`;
   if (variables.includeCover == false) cover = "<div class='cover'></div>";
 
+  if (variables.name == null) variables.name = "Name";
+  if (variables.lastName == null) variables.lastName = "Last Name";
+  if (variables.twitter == null) variables.twitter = "x.com";
+  if (variables.github == null) variables.github = "https://github.com/";
+  if (variables.instagram == null)
+    variables.instagram = "https://www.instagram.com/";
+  if (variables.role == null) variables.role = "Role";
+  if (variables.city == null) variables.city = "City";
+  if (variables.country == null) variables.country = "Country";
+
   // reset the website body with the new html output
   document.querySelector("#widget_content").innerHTML = `<div class="widget">
             ${cover}
@@ -36,7 +47,7 @@ function render(variables = {}) {
           <h1>${variables.name}</h1>
           <h2>${variables.role}</h2>
           <h3>${variables.city}, ${variables.country}</h3>
-          <ul class="position-${variables.socialMediaPosition}">
+          <ul class="${variables.socialMediaPosition}">
             <li><a href="${variables.twitter}"><i class="fab fa-twitter"></i></a></li>
             <li><a href="${variables.github}"><i class="fab fa-github"></i></a></li>
             <li><a href="${variables.linkedin}"><i class="fab fa-linkedin"></i></a></li>
